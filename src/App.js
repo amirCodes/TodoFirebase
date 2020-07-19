@@ -4,13 +4,14 @@ import { Button, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import db from './firebase';
 import firebase from 'firebase';
+import './todo.css'
 
 function App() {
 
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState('');
 
-  // when the app run we need to listen top the database and fetch the new todos as they added/removes
+  // when the app run we need to listen to the database and fetch the new todos as they added/removes
   useEffect(() => {
     // when the appjs load this fun will be fired
     db.collection("todos").orderBy('timestamp', 'desc').onSnapshot(snapshot => {
@@ -22,8 +23,6 @@ function App() {
     })
   }, [])
 
-
-
   const addTodo = (event) => {
     // this fire off when we click the submite button
     event.preventDefault();
@@ -32,21 +31,20 @@ function App() {
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     })
     setTodos([...todos, input]);
+    // clear the input text after submit 
     setInput('')
   }
-  const classes = useStyles();
   return (
-    <div className="App">
-      <h1>A todo app using reactHook and firebase</h1>
+    <div id="App">
+      <h1>Todo app using React Hook and firebase</h1>
       <form>
-        <input id="standard-basic" label="Add todo task"
+        <TextField id="standard-basic" label="Add todo task"
           value={input}
           onChange={event => setInput(event.target.value)}
           required
         />
         <Button disabled={!input} onClick={addTodo}  type='submit'variant="contained" color="primary" disableElevation>
           Add new task </Button>
-
       </form>
       {todos.map(todo => (
         // <li>{todo}</li>
@@ -57,16 +55,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
-}));
