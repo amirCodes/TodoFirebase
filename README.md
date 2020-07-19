@@ -2,7 +2,7 @@
 ## Available Scripts
 
 Live demo url 
-### `[https://todo-55bae.web.app/](https://todo-55bae.web.app/) ` 
+### [https://todo-55bae.web.app/](https://todo-55bae.web.app/) 
 
 In the project directory, you can run:
 
